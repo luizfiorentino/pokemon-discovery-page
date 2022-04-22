@@ -8,10 +8,14 @@ export default function PokemonDiscoveryPage() {
 
   useEffect(() => {
     async function takePokes() {
-      const URL = `https://pokeapi.co/api/v2/pokemon?limit=151`;
-      const response = await axios.get(URL);
-      console.log(response);
-      setPokes(response.data.results);
+      try {
+        const URL = `https://pokeapi.co/api/v2/pokemon?limit=151`;
+        const response = await axios.get(URL);
+        console.log(response);
+        setPokes(response.data.results);
+      } catch (error) {
+        console.log(error);
+      }
     }
     takePokes();
   }, []);

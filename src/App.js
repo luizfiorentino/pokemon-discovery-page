@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import PokemonDiscoveryPage from "../src/components/PokemonDiscoveryPage";
+import PokeDetails from "./components/PokeDetails";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Link to="/">Home Page</Link>
       <Routes>
         <Route path="/" element={<PokemonDiscoveryPage />} />
+        <Route path="/details/:pokemon_name" element={<PokeDetails />} />
       </Routes>
     </div>
   );
