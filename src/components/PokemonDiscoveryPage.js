@@ -1,28 +1,37 @@
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import PokeCard from "./PokeCard";
 
 export default function PokemonDiscoveryPage() {
   const [getPokes, setPokes] = useState([]);
   const [getFilter, setFilter] = useState("");
+  const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    async function takePokes() {
-      try {
+    try {
+      async function takePokes() {
         const URL = `https://pokeapi.co/api/v2/pokemon?limit=151`;
         const response = await axios.get(URL);
         console.log(response);
         setPokes(response.data.results);
-      } catch (error) {
-        console.log(error);
       }
+      takePokes();
+      if (params.getFilter) {
+        setFilter(params.getFilter);
+      } else {
+        setFilter("");
+      }
+    } catch (e) {
+      console.log(e);
     }
-    takePokes();
   }, []);
 
   const filteredChars = (event) => {
     setFilter(event.target.value);
+    navigate(`/${event.target.value}`);
   };
 
   return (

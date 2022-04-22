@@ -9,7 +9,9 @@ function App() {
     <div className="App">
       <Link to="/">Home Page</Link>
       <Routes>
-        <Route path="/" element={<PokemonDiscoveryPage />} />
+        <Route path="/" element={<PokemonDiscoveryPage />}>
+          <Route path=":getFilter" element={<PokemonDiscoveryPage />} />
+        </Route>
         <Route path="/details/:pokemon_name" element={<PokeDetails />} />
       </Routes>
     </div>
