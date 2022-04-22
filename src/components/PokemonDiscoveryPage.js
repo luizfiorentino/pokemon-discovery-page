@@ -5,6 +5,7 @@ import PokeCard from "./PokeCard";
 
 export default function PokemonDiscoveryPage() {
   const [getPokes, setPokes] = useState([]);
+  const [getFilter, setFilter] = useState("");
 
   useEffect(() => {
     async function takePokes() {
@@ -20,13 +21,18 @@ export default function PokemonDiscoveryPage() {
     takePokes();
   }, []);
 
+  const filteredChars = (event) => {
+    setFilter(event.target.value);
+  };
+
   return (
     <div>
       <h1>PokemonDiscoveryPage</h1>
+      <input type="text" value={getFilter} onChange={filteredChars} />
       {getPokes ? (
-        getPokes.map((poke, i) => {
-          return <PokeCard key={i} name={poke.name} />;
-        })
+        getPokes
+          .filter((poke) => poke.name.startsWith(getFilter))
+          .map((poke, i) => <PokeCard key={i} name={poke.name} />)
       ) : (
         <p>Loading...</p>
       )}

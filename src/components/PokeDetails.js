@@ -6,16 +6,21 @@ export default function PokeDetails() {
   const route_params = useParams();
   console.log(route_params);
 
-  const [getDetails, setDetails] = useState(null); // Must be null beacuse it returns FALSE, [] returns TRUE, and it will try to render from an empty array
+  const [getDetails, setDetails] = useState(null); // Must be null beacuse it returns FALSE, []
+  // returns TRUE, and it will try to render from an empty array
 
   useEffect(() => {
-    const fetchDetails = async () => {
-      const URL = `https://pokeapi.co/api/v2/pokemon/${route_params.pokemon_name}`;
-      const response = await axios.get(URL);
-      setDetails(response.data);
-      console.log(response.data);
-    };
-    fetchDetails();
+    try {
+      const fetchDetails = async () => {
+        const URL = `https://pokeapi.co/api/v2/pokemon/${route_params.pokemon_name}`;
+        const response = await axios.get(URL);
+        setDetails(response.data);
+        console.log(response.data);
+      };
+      fetchDetails();
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
 
   return getDetails ? (
